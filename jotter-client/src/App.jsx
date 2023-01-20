@@ -4,15 +4,24 @@ import noteService from "./services/noteService.js";
 
 const App = () => {
   const [arr, setArr] = useState([]);
-  const getNote = async () => {
+
+  const getNotes = async () => {
     const temp = await noteService.getAllNotes();
     setArr(temp);
   };
+  const addNewNote = async () => {
+    const temp2 = await noteService.createNewNote({title:"New Title3",message:"New Message"});
+    console.log(temp2)
+  };
+  const updateNote = async () => {
+    const temp3 = await noteService.updateSpecificNote();
+    console.log(temp3)
+  };
   useEffect(() => {
-    getNote();
+    getNotes();
   }, []);
 
-  console.log(arr);
+  // console.log(arr);
   return (
     <div className="app">
       {arr.map((note) => {
