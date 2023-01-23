@@ -1,34 +1,17 @@
-/************
-* Variables *
-************/
-
-
-/*********
-* Global * 
-*********/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/***************
+* Small Mobile *
+***************/
+.noteCards {
+  /* display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+  gap: 8px;
+  margin: 0 16px; */
 }
-html {
-  min-width: 100%;
-  min-height: 100%;
+.noteCards_gridItem {
+  /* grid-column: span 1; */
 }
-body {
-  background-color: lightblue;
-  width: 100%;
-  height: 100%;
-}
-
-/******
-* App * 
-******/
-
-/* Extra small devices (phones, 600px and down) */
-/* @media only screen and (max-width: 600px) {
-} */
-
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
