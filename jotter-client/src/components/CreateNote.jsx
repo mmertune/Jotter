@@ -1,15 +1,19 @@
 import { TextField, Fab, InputAdornment } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import noteService from "../services/noteService";
 import "../assets/css/createnote.css";
+import { GlobalContext } from "../context/GlobalContext";
 
 const CreateNote = () => {
   const [isTitleFieldVisible, setTitleFieldVisibility] = useState(true);
-  const [note, setNote] = useState({
-    title: "",
-    message: "",
-  });
+  // const [note, setNote] = useState({
+  //   title: "",
+  //   message: "",
+  // });
+  const { notesArray, setNotesArray } = useContext(GlobalContext);
+  const { hasError, setErrorState } = useContext(GlobalContext);
+  const { note, setNote } = useContext(GlobalContext);
   const { title, message } = note;
   const saveInput = (event) => {
     setNote((prevState) => ({
@@ -18,12 +22,17 @@ const CreateNote = () => {
     }));
   };
   const submitNote = async () => {
-    await noteService.createNewNote(note);
-    setNote({
-      title: "",
-      message: "",
-    });
-    
+    try {
+      await noteService.createNewNote(note);
+      setNote({
+        title: "",
+        message: "",
+      });
+      const retrievedData = await noteService.getAllNotes();
+      setNotesArray(retrievedData);
+    } catch (error) {
+      setErrorState(true);
+    }
   };
   return (
     <form action="submit" className="createNote_formContainer">

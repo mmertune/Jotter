@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import noteService from "../services/noteService";
+import { GlobalContext } from "../context/GlobalContext";
 import {
   Card,
   CardContent,
@@ -12,24 +13,25 @@ import { Masonry } from "@mui/lab";
 import "../assets/css/notecards.css";
 
 const NoteCards = () => {
-  const [arr, setArr] = useState([]);
-  const [isLoading, setLoadingState] = useState(true);
-  const [hasError, setErrorState] = useState(false);
+  const { notesArray, setNotesArray } = useContext(GlobalContext);
+  const { isLoading, setLoadingState } = useContext(GlobalContext);
+  const { hasError, setErrorState } = useContext(GlobalContext);
+
 
   useEffect(() => {
     setLoadingState(true);
     setErrorState(false);
     const getNotes = async () => {
       try {
-        const temp = await noteService.getAllNotes();
-        setArr(temp);
+        const retrievedData = await noteService.getAllNotes();
+        setNotesArray(retrievedData);
       } catch (error) {
         setErrorState(true);
       }
     };
     getNotes();
     setLoadingState(false);
-  }, [setArr]);
+  }, [setNotesArray]);
 
   const theme = useTheme();
   const smallphoneView = useMediaQuery(theme.breakpoints.down("sm"));
@@ -57,46 +59,48 @@ const NoteCards = () => {
     return (
       <div className="noteCards">
         <Masonry columns={columnVal()}>
-          {(isLoading ? Array.from(new Array(16)) : arr).map((note, index) => (
-            <Card
-              key={isLoading ? index : note.id}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "left",
-              }}
-            >
-              {isLoading ? (
-                <>
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    sx={{
-                      fontSize: "32px",
-                      marginTop: "8px",
-                    }}
-                    width="80%"
-                  />
-                  <Skeleton
-                    variant="text"
-                    animation="wave"
-                    sx={{
-                      fontSize: "160px",
-                    }}
-                    width="80%"
-                  />
-                </>
-              ) : (
-                <>
-                  <CardContent>
-                    <Typography variant="subtitle1">{note.title}</Typography>
-                    <Typography variant="body1">{note.message}</Typography>
-                  </CardContent>
-                </>
-              )}
-            </Card>
-          ))}
+          {(isLoading ? Array.from(new Array(16)) : notesArray).map(
+            (note, index) => (
+              <Card
+                key={isLoading ? index : note.id}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "left",
+                }}
+              >
+                {isLoading ? (
+                  <>
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      sx={{
+                        fontSize: "32px",
+                        marginTop: "8px",
+                      }}
+                      width="80%"
+                    />
+                    <Skeleton
+                      variant="text"
+                      animation="wave"
+                      sx={{
+                        fontSize: "160px",
+                      }}
+                      width="80%"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <CardContent>
+                      <Typography variant="subtitle1">{note.title}</Typography>
+                      <Typography variant="body1">{note.message}</Typography>
+                    </CardContent>
+                  </>
+                )}
+              </Card>
+            )
+          )}
         </Masonry>
       </div>
     );
