@@ -1,10 +1,12 @@
-import NoteCards from "../components/NoteCards"
+import NoteCards from "../components/NoteCards";
+import CreateNote from "../components/CreateNote";
 
 const Body = () => {
   return (
     <main className="body">
-        <NoteCards />
+      <CreateNote />
+      <NoteCards />
     </main>
-  )
-}
-export default Body
+  );
+};
+export default Body;

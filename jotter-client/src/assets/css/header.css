@@ -1,6 +1,19 @@
-.header{
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.header {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+.header_frmContainer {
+  /* border: solid black 1px; */
+  display: flex;
+  align-items: center;
+  /* height: 32px;
+  width: 256px; */
+}
+.header_frmInput {
+  border: none;
+  height: 100%;
+  width: 100%;
 }
