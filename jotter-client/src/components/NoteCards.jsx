@@ -14,17 +14,23 @@ import "../assets/css/notecards.css";
 const NoteCards = () => {
   const [arr, setArr] = useState([]);
   const [isLoading, setLoadingState] = useState(true);
+  const [hasError, setErrorState] = useState(false);
 
   useEffect(() => {
-    // setLoadingState(()=> true);
+    setLoadingState(true);
+    setErrorState(false);
+    const getNotes = async () => {
+      try {
+        const temp = await noteService.getAllNotes();
+        setArr(temp);
+      } catch (error) {
+        setErrorState(true);
+      }
+    };
     getNotes();
-    // setLoadingState(()=> false);
-  }, []);
+    setLoadingState(false);
+  }, [setArr]);
 
-  const getNotes = async () => {
-    const temp = await noteService.getAllNotes();
-    setArr(temp);
-  };
   const theme = useTheme();
   const smallphoneView = useMediaQuery(theme.breakpoints.down("sm"));
   const smallTabletView = useMediaQuery(theme.breakpoints.up("sm"));
@@ -34,67 +40,65 @@ const NoteCards = () => {
 
   const columnVal = () => {
     if (lgDesktopView) {
-      console.log("5");
       return 5;
     } else if (laptopView) {
-      console.log("4");
       return 4;
     } else if (largeTabletView) {
-      console.log("3");
       return 3;
     } else if (smallTabletView) {
-      console.log("2");
       return 2;
     } else if (smallphoneView) {
-      console.log("1");
       return 1;
     }
   };
-  return (
-    <div className="noteCards">
-      <Masonry columns={columnVal()}>
-        {(isLoading ? Array.from(new Array(16)) : arr).map((note,index) => (
-          <Card
-            key={(isLoading ? index : note.id)}
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {isLoading ? (
-              <>
-                <Skeleton
-                  variant="text"
-                  animation="wave"
-                  sx={{
-                    fontSize: "32px",
-                    marginTop:"8px"
-                  }}
-                  width="80%"
-                />
-                <Skeleton
-                  variant="text"
-                  animation="wave"
-                  sx={{
-                    fontSize: "160px",
-                  }}
-                  width="80%"
-                />
-              </>
-            ) : (
-              <>
-                <CardContent>
-                  <Typography variant="subtitle1">{note.title}</Typography>
-                  <Typography variant="body1">{note.message}</Typography>
-                </CardContent>
-              </>
-            )}
-          </Card>
-        ))}
-      </Masonry>
-    </div>
-  );
+  if (hasError) {
+    return <div>Error</div>;
+  } else
+    return (
+      <div className="noteCards">
+        <Masonry columns={columnVal()}>
+          {(isLoading ? Array.from(new Array(16)) : arr).map((note, index) => (
+            <Card
+              key={isLoading ? index : note.id}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "left",
+              }}
+            >
+              {isLoading ? (
+                <>
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    sx={{
+                      fontSize: "32px",
+                      marginTop: "8px",
+                    }}
+                    width="80%"
+                  />
+                  <Skeleton
+                    variant="text"
+                    animation="wave"
+                    sx={{
+                      fontSize: "160px",
+                    }}
+                    width="80%"
+                  />
+                </>
+              ) : (
+                <>
+                  <CardContent>
+                    <Typography variant="subtitle1">{note.title}</Typography>
+                    <Typography variant="body1">{note.message}</Typography>
+                  </CardContent>
+                </>
+              )}
+            </Card>
+          ))}
+        </Masonry>
+      </div>
+    );
 };
 export default NoteCards;

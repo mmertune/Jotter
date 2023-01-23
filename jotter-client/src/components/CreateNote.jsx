@@ -23,8 +23,8 @@ const CreateNote = () => {
       title: "",
       message: "",
     });
+    
   };
-  console.log(note);
   return (
     <form action="submit" className="createNote_formContainer">
       {isTitleFieldVisible && (
