@@ -51,13 +51,13 @@ const CreateNote = () => {
           size="small"
           onFocus={() => {}}
           sx={{
-            margin: "48px auto 0",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            "& fieldset": {
-              borderRadius: "0px",
-            },
+            margin: "0 auto 0",
+            // display: "flex",
+            // justifyContent: "center",
+            // alignItems: "center",
+            // "& fieldset": {
+            //   borderRadius: "0px",
+            // },
           }}
           onChange={saveInput}
         />

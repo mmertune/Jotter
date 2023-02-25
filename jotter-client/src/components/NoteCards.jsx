@@ -59,7 +59,7 @@ const NoteCards = () => {
     return (
       <div className="noteCards">
         <Masonry columns={columnVal()}>
-          {(isLoading ? Array.from(new Array(16)) : notesArray).map(
+          {(isLoading ? Array.from(new Array(4)) : notesArray).map(
             (note, index) => (
               <Card
                 key={isLoading ? index : note.id}
