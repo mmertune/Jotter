@@ -44,7 +44,7 @@ jobs:
         image: jotter
         registry: ghcr.io
         directory: "jotter-server"
-        dockerfile: "jotter-server/"
+        dockerfile: "jotter-server/Dockerfile"
         username: ${{ secrets.GHCR_USERNAME }}
         password: ${{ secrets.GHCR_TOKEN }}
 #         addLatest: true
