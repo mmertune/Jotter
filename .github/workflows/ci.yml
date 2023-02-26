@@ -46,5 +46,5 @@ jobs:
         username: ${{ secrets.GHCR_USERNAME }}
         password: ${{ secrets.GHCR_TOKEN }}
 #         addLatest: true
-        dockerFile: "jotter-server/"
+        dockerFile: "jotter-server/Dockerfile"
 #         buildArgs: DBS_HOST=${{ secrets.DBS_HOST }} DBS_NAME=${{ secrets.DBS_NAME }} DBS_PASSWORD=${{ secrets.DBS_PASSWORD }} DBS_USERNAME=${{ secrets.DBS_USERNAME }} PROFILE=${{ secrets.PROFILE }}
