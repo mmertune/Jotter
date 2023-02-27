@@ -1,17 +1,20 @@
-# fly.toml file generated for jotter-api on 2023-02-26T18:40:51-05:00
+# fly.toml file generated for jotter-api on 2023-02-26T19:01:32-05:00
 
 app = "jotter-api"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
+[build]
+  image = "ghcr.io/mmertune/jotter:latest"
+
 [env]
-  DBS_HOST = "${{ secrets.DBS_HOST }}"
-  DBS_NAME = "${{ secrets.DBS_NAME }}"
-  DBS_PASSWORD = "${{ secrets.DBS_PASSWORD }}"
-  DBS_USERNAME = "${{ secrets.DBS_USERNAME }}"
-  Fly-Client-IP = "https://jotter.marvensmertune.com/"
-  PROFILE = "${{ secrets.PROFILE }}"
+DBS_HOST = ${{ secrets.DBS_HOST }}
+DBS_NAME = ${{ secrets.DBS_NAME }}
+DBS_PASSWORD = ${{ secrets.DBS_PASSWORD }}
+DBS_USERNAME = ${{ secrets.DBS_USERNAME }}
+Fly-Client-IP = https://jotter.marvensmertune.com/
+PROFILE = ${{ secrets.PROFILE }}
 [experimental]
   auto_rollback = true
 
