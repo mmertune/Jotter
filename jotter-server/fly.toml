@@ -9,12 +9,7 @@ processes = []
   image = "ghcr.io/mmertune/jotter:latest"
 
 [env]
-DBS_HOST = ${{ secrets.DBS_HOST }}
-DBS_NAME = ${{ secrets.DBS_NAME }}
-DBS_PASSWORD = ${{ secrets.DBS_PASSWORD }}
-DBS_USERNAME = ${{ secrets.DBS_USERNAME }}
-Fly-Client-IP = https://jotter.marvensmertune.com/
-PROFILE = ${{ secrets.PROFILE }}
+
 [experimental]
   auto_rollback = true
 
