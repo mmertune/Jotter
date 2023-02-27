@@ -12,9 +12,9 @@ on:
   push:
     branches: [ "production" ]
     paths: ["jotter-server/**"]
-  pull_request:
-    branches: [ "production" ]
-    paths: ["jotter-server/**"]
+#   pull_request:
+#     branches: [ "production" ]
+#     paths: ["jotter-server/**"]
 
 jobs:
   build:
